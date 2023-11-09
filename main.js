@@ -74,11 +74,30 @@ function main(){
         [0.0, 1.0, 0.0]//arah atas kamera (vektor)
         );
 
-    var theta = glMatrix.glMatrix.toRadian(1);//sudutnya adalah 1 derajat   
+    var theta = glMatrix.glMatrix.toRadian(1);//sudutnya adalah 1 derajat
+
+
     var animate = function(){
         if(!freeze){
-            glMatrix.mat4.rotate(modmatrix, modmatrix, theta, [1.0,1.0,1.0]);
+            glMatrix.mat4.rotate(modmatrix, modmatrix, theta, [0.0,0.0,0.0]);
+            if (shrink) {
+                glMatrix.mat4.scale(modmatrix, modmatrix, [0.95, 0.95, 0.95]);
+            }
+            if (unshrink){
+                glMatrix.mat4.scale(modmatrix, modmatrix, [1.05, 1.05, 1.05]);
+            }
+            if(rotateX){
+                glMatrix.mat4.rotate(modmatrix, modmatrix, theta, [0.1,0.0,0.0]);
+            }
+            if(rotateY){
+                glMatrix.mat4.rotate(modmatrix, modmatrix, theta, [0.0,0.1,0.0]);
+            }
+            if(rotateZ){
+                glMatrix.mat4.rotate(modmatrix, modmatrix, theta, [0.0,0.0,0.1]);
+            }
+    
         }
+        
         
         gl.enable(gl.DEPTH_TEST);
         gl.depthFunc(gl.LEQUAL);
@@ -95,8 +114,9 @@ function main(){
 
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
         gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
-
+    
         window.requestAnimationFrame(animate);
-    }    
+    }
+
     animate(0);    
 }
