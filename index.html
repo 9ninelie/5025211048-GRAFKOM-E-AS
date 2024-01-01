@@ -7,14 +7,13 @@
     <title>Arif Nugraha Santosa AS</title>
 </head>
 <body onload="main()">
-    <canvas id="myCanvas" style="border: 1px solid black;" width="1000px" height="750px">
-    </canvas>
+    <canvas id="myCanvas" style="border: 1px solid black;" width="1000px" height="750px"></canvas>
     <script src="data.js"></script>
     <script src="main.js"></script>
     <script src="IOHandler.js"></script>
     <script src="gl-matrix-min.js"></script>
 
-    <script id="vertexShaderCode" type="notjs">
+    <script id="vertexShaderCode" type="x-shader/x-vertex">
         attribute vec3 aPosition;
         attribute vec3 aColor;
         uniform mat4 uMatrix;
@@ -24,14 +23,14 @@
         varying vec3 vColor;
         void main() {
             vColor = aColor;
-            gl_Position = uProj*uView*uModel*vec4(aPosition, 1.0);
+            gl_Position = uProj * uView * uModel * vec4(aPosition, 1.0);
         }
     </script>
-    <script id="fragmentShaderCode" type="notjs">
+    <script id="fragmentShaderCode" type="x-shader/x-fragment">
         precision mediump float;
         varying vec3 vColor;
         void main() {
-        gl_FragColor = vec4(vColor, 1.0);
+            gl_FragColor = vec4(vColor, 1.0);
         }
     </script>
 </body>
