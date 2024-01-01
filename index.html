@@ -1,18 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arif Nugraha Santosa AS</title>
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            border: 1px solid black;
+        }
+
+        @media only screen and (min--moz-device-pixel-ratio: 1.5),
+        only screen and (-o-min-device-pixel-ratio: 3/2),
+        only screen and (-webkit-min-device-pixel-ratio: 1.5),
+        only screen and (min-device-pixel-ratio: 1.5) and (min-resolution: 144dpi) {
+            canvas {
+                width: 50vw; 
+                height: 50vh; 
+            }
+        }
+
+    </style>
 </head>
+
 <body onload="main()">
-    <canvas id="myCanvas" style="border: 1px solid black;" width="1000px" height="750px">
-    </canvas>
+    <canvas id="myCanvas"></canvas>
+    <script src="gl-matrix-min.js"></script>
+    <script src="IOHandler.js"></script>
     <script src="data.js"></script>
     <script src="main.js"></script>
-    <script src="IOHandler.js"></script>
-    <script src="gl-matrix-min.js"></script>
 
     <script id="vertexShaderCode" type="notjs">
         attribute vec3 aPosition;
@@ -34,5 +58,23 @@
         gl_FragColor = vec4(vColor, 1.0);
         }
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var canvas = document.getElementById('myCanvas');
+            var context = canvas.getContext('webgl');
+
+            // Get the device pixel ratio
+            var dpr = window.devicePixelRatio || 1;
+
+            // Set the canvas size taking into account the device pixel ratio
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+
+            // Set the CSS size to the actual size divided by the device pixel ratio
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+        });
+    </script>
+
 </body>
 </html>
